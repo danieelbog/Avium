@@ -3,14 +3,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Web.BFF.Middlewares;
 using WebApp.BFF.Core.Models;
 using WebApp.BFF.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#region Dependency Injection
 
+//builder.Services.AddScoped<IConfiguration>(provider => builder.Configuration);
+
+#endregion
+
+#region Identity | Database | DbContext
 builder.Services.AddDbContext<WebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebContext")));
-
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<WebContext>()
@@ -35,10 +41,20 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+#endregion
+
+#region General Dependencies
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
+
+#endregion
+
+#region App setup
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -54,3 +70,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+#endregion

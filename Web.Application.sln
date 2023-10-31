@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.BFF", "Web.BFF\Web.BFF.csproj", "{564BD19E-A163-45A0-9C63-347A4906EEC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.BFF", "Web.BFF\Web.BFF.csproj", "{564BD19E-A163-45A0-9C63-347A4906EEC9}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Web.SPA", "Web.SPA\Web.SPA.esproj", "{9966F25B-8059-430B-93EE-2FB624848B62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web.App", "Web.App", "{0874125F-45D2-401A-A062-E5E4177427E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Services", "Web.Services\Web.Services.csproj", "{36195B84-05C4-401D-8652-96B563624500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Services", "Web.Services\Web.Services.csproj", "{36195B84-05C4-401D-8652-96B563624500}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Services.Impl", "Web.Services.Impl\Web.Services.Impl.csproj", "{19962FC1-FCCE-45F9-BB5E-FB185BD65890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Services.Impl", "Web.Services.Impl\Web.Services.Impl.csproj", "{19962FC1-FCCE-45F9-BB5E-FB185BD65890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.EntityFramework", "Web.EntityFramework\Web.EntityFramework.csproj", "{CDC02867-FACF-49BC-9C3C-6F8C38686579}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.EntityFramework", "Web.EntityFramework\Web.EntityFramework.csproj", "{CDC02867-FACF-49BC-9C3C-6F8C38686579}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Core", "Web.Core\Web.Core.csproj", "{41D3C97B-0DB9-40DF-B506-454D69367336}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Core", "Web.Core\Web.Core.csproj", "{41D3C97B-0DB9-40DF-B506-454D69367336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Repository", "Web.Repository\Web.Repository.csproj", "{C687DD85-EB8B-4303-A8FD-5606334F9662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Repository", "Web.Repository\Web.Repository.csproj", "{C687DD85-EB8B-4303-A8FD-5606334F9662}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Repository.Impl", "Web.Repository.Impl\Web.Repository.Impl.csproj", "{EEE208C6-04E0-44D6-AE3D-7CD4B6A2D85D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.Repository.Impl", "Web.Repository.Impl\Web.Repository.Impl.csproj", "{EEE208C6-04E0-44D6-AE3D-7CD4B6A2D85D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

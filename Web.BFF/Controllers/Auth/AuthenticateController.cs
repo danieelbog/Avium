@@ -5,11 +5,12 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Web.Core.Exceptions;
 using WebApp.BFF.Core.Models;
 
 namespace JWTAuthentication.NET6._0.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/auth")]
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
@@ -34,10 +35,10 @@ namespace JWTAuthentication.NET6._0.Controllers
 
             var userRoles = await _userManager.GetRolesAsync(user);
             var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+            {
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
 
             foreach (var userRole in userRoles)
             {
@@ -57,8 +58,8 @@ namespace JWTAuthentication.NET6._0.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             var userExists = await _userManager.FindByNameAsync(registerDto.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError);
+            if (userExists == null)
+                throw new NotFoundException($"User with provided credentials does not exist");
 
             ApplicationUser user = new()
             {
