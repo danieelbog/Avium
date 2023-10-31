@@ -4,15 +4,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Web.BFF.Middlewares;
+using Web.Services.Impl.Services.Auth;
+using Web.Services.Interfaces.Auth;
 using WebApp.BFF.Core.Models;
 using WebApp.BFF.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
 #region Dependency Injection
-
-//builder.Services.AddScoped<IConfiguration>(provider => builder.Configuration);
-
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 #endregion
 
 #region Identity | Database | DbContext

@@ -1,12 +1,8 @@
 ﻿using Ecom.Core.DTOs.Account;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Web.Core.Exceptions;
-using WebApp.BFF.Core.Models;
+using Web.Core.DTOs.Auth;
+using Web.Core.DTOs.Response;
+using Web.Services.Interfaces.Auth;
 
 namespace JWTAuthentication.NET6._0.Controllers
 {
@@ -14,42 +10,25 @@ namespace JWTAuthentication.NET6._0.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IConfiguration _configuration;
+        private readonly ITokenService _tokenService;
+        private readonly IAuthService _authService;
 
         public AuthenticateController(
-            UserManager<ApplicationUser> userManager,
-            IConfiguration configuration)
+            ITokenService tokenService,
+            IAuthService authService)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+            _tokenService = tokenService;
+            _authService = authService;
         }
 
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.Username);
-            if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
-                return Unauthorized();
-
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var authClaims = new List<Claim>
+            return Ok(new ApiResponse<TokenDto>
             {
-                new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            };
-
-            foreach (var userRole in userRoles)
-            {
-                authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-            }
-
-            var token = GetToken(authClaims);
-            return Ok(new
-            {
-                token = new JwtSecurityTokenHandler().WriteToken(token),
-                expiration = token.ValidTo
+                Data = await _authService.LoginAsync(loginDto),
+                Success = true
             });
         }
 
@@ -57,36 +36,11 @@ namespace JWTAuthentication.NET6._0.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var userExists = await _userManager.FindByNameAsync(registerDto.Username);
-            if (userExists == null)
-                throw new NotFoundException($"User with provided credentials does not exist");
-
-            ApplicationUser user = new()
+            return Ok(new ApiResponse<UserDto>
             {
-                Email = registerDto.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = registerDto.Username
-            };
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
-            if (!result.Succeeded)
-                return StatusCode(StatusCodes.Status500InternalServerError);
-
-            return Ok();
-        }
-
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
-        {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:ValidIssuer"],
-                audience: _configuration["JWT:ValidAudience"],
-                expires: DateTime.Now.AddHours(3),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                );
-
-            return token;
+                Data = await _authService.RegisterAsync(registerDto),
+                Success = true
+            });
         }
     }
 }
