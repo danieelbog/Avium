@@ -1,46 +1,54 @@
 ﻿using Ecom.Core.DTOs.Account;
 using Microsoft.AspNetCore.Mvc;
+using Web.BFF.Controllers;
 using Web.Core.DTOs.Auth;
 using Web.Core.DTOs.Response;
 using Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Response;
 
 namespace JWTAuthentication.NET6._0.Controllers
 {
-    [Route("api/v1/auth")]
+    [Route("/v1/auth")]
     [ApiController]
-    public class AuthenticateController : ControllerBase
+    public class AuthenticateController : BaseApiController
     {
-        private readonly ITokenService _tokenService;
         private readonly IAuthService _authService;
+        private readonly IResponseService _responseService;
 
         public AuthenticateController(
-            ITokenService tokenService,
-            IAuthService authService)
+            IAuthService authService,
+            IResponseService responseService)
         {
-            _tokenService = tokenService;
             _authService = authService;
+            _responseService = responseService;
         }
 
+        /// <summary>
+        /// Get auth token
+        /// </summary>
+        /// <param name="loginDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("login")]
+        [ProducesResponseType(typeof(ApiResponse<TokenDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ExceptionDto>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            return Ok(new ApiResponse<TokenDto>
-            {
-                Data = await _authService.LoginAsync(loginDto),
-                Success = true
-            });
+            return Ok(_responseService.CreateResponse(await _authService.LoginAsync(loginDto)));
         }
 
+        /// <summary>
+        /// Register new user
+        /// </summary>
+        /// <param name="registerDto"></param>
+        /// <returns></returns>
         [HttpPost]
         [Route("register")]
+        [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse<ExceptionDto>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            return Ok(new ApiResponse<UserDto>
-            {
-                Data = await _authService.RegisterAsync(registerDto),
-                Success = true
-            });
+            return Ok(_responseService.CreateResponse(await _authService.RegisterAsync(registerDto)));
         }
     }
 }

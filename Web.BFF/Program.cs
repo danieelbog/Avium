@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Reflection;
 using System.Text;
 using Web.BFF.Middlewares;
 using Web.Services.Impl.Services.Auth;
+using Web.Services.Impl.Services.Response;
 using Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Response;
 using WebApp.BFF.Core.Models;
 using WebApp.BFF.Database;
 
@@ -14,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 #region Dependency Injection
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IResponseService, ResponseService>();
 #endregion
 
 #region Identity | Database | DbContext
@@ -48,7 +52,11 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+});
 var app = builder.Build();
 
 #endregion

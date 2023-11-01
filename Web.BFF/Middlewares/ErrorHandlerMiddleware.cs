@@ -38,12 +38,12 @@ namespace Web.BFF.Middlewares
             if (_statusCodeMap.TryGetValue(exceptionType, out int statusCode))
             {
                 context.Response.StatusCode = statusCode;
-                await context.Response.WriteAsJsonAsync(new ApiResponse<object> { Success = false, Message = ex.Message });
+                await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto> { Data = new ExceptionDto(exceptionType.Name, ex.Message) });
             }
             else
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsJsonAsync(new ApiResponse<object> { Success = false, Message = ex.Message });
+                await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto> { Data = new ExceptionDto(exceptionType.Name, ex.Message) });
             }
         }
     }
