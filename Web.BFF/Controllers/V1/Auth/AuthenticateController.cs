@@ -1,14 +1,13 @@
 ﻿using Ecom.Core.DTOs.Account;
 using Microsoft.AspNetCore.Mvc;
-using Web.BFF.Controllers;
 using Web.Core.DTOs.Auth;
 using Web.Core.DTOs.Response;
 using Web.Services.Interfaces.Auth;
 using Web.Services.Interfaces.Response;
 
-namespace JWTAuthentication.NET6._0.Controllers
+namespace Web.BFF.Controllers.V1.Auth
 {
-    [Route("/v1/auth")]
+    [Route("api/v1/auth")]
     [ApiController]
     public class AuthenticateController : BaseApiController
     {
