@@ -1,5 +1,7 @@
-﻿using Web.Core.DTOs.Response;
+﻿using Web.Core.DTOs.Logging;
+using Web.Core.DTOs.Response;
 using Web.Core.Exceptions;
+using Web.Services.Interfaces.Logging;
 
 namespace Web.BFF.Middlewares
 {
@@ -7,17 +9,20 @@ namespace Web.BFF.Middlewares
     {
         private readonly RequestDelegate _next;
         private readonly Dictionary<Type, int> _statusCodeMap;
+        private readonly IServiceProvider _serviceProvider;
 
-        public ErrorHandlerMiddleware(RequestDelegate next)
+        public ErrorHandlerMiddleware(RequestDelegate next, IServiceProvider serviceProvider)
         {
             _next = next;
-            _statusCodeMap = new Dictionary<Type,int>
+            _statusCodeMap = new Dictionary<Type, int>
             {
                 { typeof(RegistrationFailedException), StatusCodes.Status400BadRequest },
                 { typeof(EntityAlreadyExists), StatusCodes.Status400BadRequest },
                 { typeof(UnauthorizedAccessException), StatusCodes.Status401Unauthorized },
                 { typeof(NotFoundException), StatusCodes.Status404NotFound }
             };
+
+            _serviceProvider = serviceProvider;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -35,15 +40,45 @@ namespace Web.BFF.Middlewares
         private async Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var exceptionType = ex.GetType();
-            if (_statusCodeMap.TryGetValue(exceptionType, out int statusCode))
+            var statusCode = _statusCodeMap.TryGetValue(exceptionType, out int code) ? code : StatusCodes.Status500InternalServerError;
+            context.Response.StatusCode = statusCode;
+
+            await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto>
             {
-                context.Response.StatusCode = statusCode;
-                await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto> { Data = new ExceptionDto(exceptionType.Name, ex.Message) });
+                Data = new ExceptionDto(exceptionType.Name, ex.Message)
+            });
+
+            await LogExceptionAsync(context, ex);
+        }
+
+        private async Task LogExceptionAsync(HttpContext context, Exception ex)
+        {
+            var loggingData = new LoggingDataDto
+            {
+                Method = context.Request.Method,
+                Path = context.Request.Path,
+                LogLevel = LogLevel.Error,
+                Message = ex.Message,
+                Exception = ex.GetType().ToString(),
+                CreatedAt = DateTimeOffset.UtcNow,
+            };
+
+            var routeData = context.GetRouteData();
+            if (routeData != null)
+            {
+                loggingData.ControllerName = routeData.Values.TryGetValue("controller", out var controller)
+                    ? controller?.ToString()
+                    : "Unknown";
+
+                loggingData.ActionName = routeData.Values.TryGetValue("action", out var action)
+                    ? action?.ToString()
+                    : "Unknown";
             }
-            else
+
+            using (var scope = _serviceProvider.CreateScope())
             {
-                context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto> { Data = new ExceptionDto(exceptionType.Name, ex.Message) });
+                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
+                await loggingService.LogAsync(loggingData);
             }
         }
     }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Web.Core\Web.Core.csproj" />
+    <ProjectReference Include="..\Web.EntityFramework\Web.EntityFramework.csproj" />
     <ProjectReference Include="..\Web.Services\Web.Services.csproj" />
   </ItemGroup>
 

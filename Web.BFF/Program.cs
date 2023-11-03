@@ -5,26 +5,43 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using Web.BFF.Middlewares;
+using Web.EntityFramework.Database;
 using Web.Services.Impl.Services.Auth;
+using Web.Services.Impl.Services.Logging;
 using Web.Services.Impl.Services.Response;
 using Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Logging;
 using Web.Services.Interfaces.Response;
 using WebApp.BFF.Core.Models;
 using WebApp.BFF.Database;
+using YourNamespace.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Logging Injection
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.AddEventSourceLogger();
+#endregion
 
 #region Dependency Injection
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IResponseService, ResponseService>();
+builder.Services.AddScoped<ILoggingService, LoggingService>();
+builder.Services.AddScoped<IApplicationDBContext, ApplicationDbContext>();
+#endregion
+
+#region Mapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 #endregion
 
 #region Identity | Database | DbContext
-builder.Services.AddDbContext<WebContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebContext")));
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("WebContext")));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<WebContext>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddAuthentication(options =>
@@ -64,6 +81,7 @@ var app = builder.Build();
 #region App setup
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {

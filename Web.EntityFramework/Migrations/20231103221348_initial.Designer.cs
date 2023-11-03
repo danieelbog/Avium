@@ -11,9 +11,9 @@ using WebApp.BFF.Database;
 
 namespace Web.EntityFramework.Migrations
 {
-    [DbContext(typeof(WebContext))]
-    [Migration("20231030145557_Initial")]
-    partial class Initial
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20231103221348_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

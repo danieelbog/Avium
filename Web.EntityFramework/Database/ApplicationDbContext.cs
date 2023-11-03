@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Web.Core.Models.Logging;
+using Web.EntityFramework.Database;
 using WebApp.BFF.Core.Models;
 
 //        Cmdlet                      Description
@@ -13,18 +15,17 @@ using WebApp.BFF.Core.Models;
 
 namespace WebApp.BFF.Database
 {
-    public class WebContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDBContext
     {
-        public WebContext(DbContextOptions<WebContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            //builder.Entity<LoggingData>()
-            //    .Property(e => e.Id)
-            //    .ValueGeneratedOnAdd();
         }
+
+        public DbSet<LoggingData> loggingData { get; set; }
     }
 }
