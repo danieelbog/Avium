@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.Core.Models.Logging;
 using Web.EntityFramework.Database;
 using WebApp.BFF.Core.Models;
 
@@ -25,7 +24,5 @@ namespace WebApp.BFF.Database
         {
             base.OnModelCreating(builder);
         }
-
-        public DbSet<LoggingData> loggingData { get; set; }
     }
 }

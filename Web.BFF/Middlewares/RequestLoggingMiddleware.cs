@@ -1,5 +1,4 @@
 ﻿using Web.Core.DTOs.Logging;
-using Web.Services.Interfaces.Logging;
 
 namespace YourNamespace.Middlewares
 {
@@ -16,11 +15,11 @@ namespace YourNamespace.Middlewares
 
         public async Task Invoke(HttpContext context)
         {
-            await LogRequest(context);
+            LogRequest(context);
             await _next(context);
         }
 
-        private async Task LogRequest(HttpContext context)
+        private void LogRequest(HttpContext context)
         {
             var loggingData = new LoggingDataDto
             {
@@ -44,8 +43,8 @@ namespace YourNamespace.Middlewares
 
             using (var scope = _serviceProvider.CreateScope())
             {
-                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
-                await loggingService.LogAsync(loggingData);
+                var loggingService = scope.ServiceProvider.GetRequiredService<Serilog.ILogger>();
+                loggingService.Information("Executing request:{@loggingData}", loggingData);
             }
         }
     }

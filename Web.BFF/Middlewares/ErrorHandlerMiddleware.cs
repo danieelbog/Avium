@@ -1,7 +1,6 @@
 ﻿using Web.Core.DTOs.Logging;
 using Web.Core.DTOs.Response;
 using Web.Core.Exceptions;
-using Web.Services.Interfaces.Logging;
 
 namespace Web.BFF.Middlewares
 {
@@ -48,10 +47,10 @@ namespace Web.BFF.Middlewares
                 Data = new ExceptionDto(exceptionType.Name, ex.Message)
             });
 
-            await LogExceptionAsync(context, ex);
+            LogExceptionAsync(context, ex);
         }
 
-        private async Task LogExceptionAsync(HttpContext context, Exception ex)
+        private void LogExceptionAsync(HttpContext context, Exception ex)
         {
             var loggingData = new LoggingDataDto
             {
@@ -77,8 +76,8 @@ namespace Web.BFF.Middlewares
 
             using (var scope = _serviceProvider.CreateScope())
             {
-                var loggingService = scope.ServiceProvider.GetRequiredService<ILoggingService>();
-                await loggingService.LogAsync(loggingData);
+                var loggingService = scope.ServiceProvider.GetRequiredService<Serilog.ILogger>();
+                loggingService.Error("Error occured:{@loggingData}", loggingData);
             }
         }
     }

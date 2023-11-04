@@ -2,15 +2,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Reflection;
 using System.Text;
 using Web.BFF.Middlewares;
 using Web.EntityFramework.Database;
 using Web.Services.Impl.Services.Auth;
-using Web.Services.Impl.Services.Logging;
 using Web.Services.Impl.Services.Response;
 using Web.Services.Interfaces.Auth;
-using Web.Services.Interfaces.Logging;
 using Web.Services.Interfaces.Response;
 using WebApp.BFF.Core.Models;
 using WebApp.BFF.Database;
@@ -19,17 +18,14 @@ using YourNamespace.Middlewares;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Logging Injection
-builder.Logging.ClearProviders();
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
-builder.Logging.AddEventSourceLogger();
+builder.Host.UseSerilog((context, loggerConfig) =>
+    loggerConfig.ReadFrom.Configuration(context.Configuration));
 #endregion
 
 #region Dependency Injection
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IResponseService, ResponseService>();
-builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddScoped<IApplicationDBContext, ApplicationDbContext>();
 #endregion
 
@@ -88,6 +84,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
