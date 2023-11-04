@@ -23,6 +23,7 @@ namespace YourNamespace.Middlewares
         {
             var loggingData = new LoggingDataDto
             {
+                Id = Guid.NewGuid(),
                 Method = context.Request.Method,
                 Path = context.Request.Path,
                 LogLevel = LogLevel.Error,
