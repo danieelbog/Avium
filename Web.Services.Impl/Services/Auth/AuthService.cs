@@ -5,7 +5,9 @@ using Web.Core.DTOs.Auth;
 using Web.Core.DTOs.User;
 using Web.Core.Exceptions;
 using Web.Core.Models.User;
+using Web.Services.Impl.Services.Auth.Events;
 using Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Event;
 
 namespace Web.Services.Impl.Services.Auth
 {
@@ -14,15 +16,18 @@ namespace Web.Services.Impl.Services.Auth
         #region Private Members
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly IEventService _eventService;
         #endregion
 
         #region Constructors
         public AuthService(
             UserManager<ApplicationUser> userManager,
-            ITokenService tokenService)
+            ITokenService tokenService,
+            IEventService eventService)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _eventService = eventService;
         }
 
         #endregion
@@ -56,6 +61,9 @@ namespace Web.Services.Impl.Services.Auth
 
             var authClaims = await GetAuthClaims(user);
             var token = _tokenService.GetJwtSecurityToken(authClaims);
+
+            _eventService.Raise(new LoginEvent { ApplicationUser = user });
+
             return new TokenDto()
             {
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -80,7 +88,7 @@ namespace Web.Services.Impl.Services.Auth
             if (!result.Succeeded)
                 throw new RegistrationFailedException("User registration failed. Please try again.");
 
-            return new UserDto(user.Email, user.UserName);
+            return new UserDto(user.UserName, user.Email);
         }
 
         #endregion

@@ -39,6 +39,8 @@ namespace Web.EntityFramework
                 };
             });
 
+            services.AddScoped<IApplicationDBContext, ApplicationDbContext>();
+
             return services;
         }
     }
