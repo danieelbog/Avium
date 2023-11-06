@@ -1,7 +1,7 @@
-﻿using Web.Core.DTOs.Response;
-using Web.Services.Interfaces.Response;
+﻿using Web.App.Application.Web.Services.Interfaces.Response;
+using Web.App.Core.Web.Core.DTOs.Response;
 
-namespace Web.Services.Impl.Services.Response
+namespace Web.App.Application.Web.Services.Impl.Services.Services.Response
 {
     public class ResponseService : IResponseService
     {

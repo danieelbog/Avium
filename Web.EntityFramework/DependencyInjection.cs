@@ -5,10 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using WebApp.BFF.Core.Models;
-using WebApp.BFF.Database;
+using Web.App.Core.Web.Core.Models;
 
-namespace Web.EntityFramework
+namespace Web.App.Persistence.Web.EntityFramework
 {
     public static class DependencyInjection
     {

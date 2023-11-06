@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.EntityFramework.Database;
-using WebApp.BFF.Core.Models;
+using Web.App.Core.Web.Core.Models;
 
 //        Cmdlet                      Description
 //        --------------------------  ---------------------------------------------------
@@ -12,7 +11,7 @@ using WebApp.BFF.Core.Models;
 //        Update-Database		      Updates the database to a specified migration.
 //        Use-DbContext               Sets the default DbContext to use.
 
-namespace WebApp.BFF.Database
+namespace Web.App.Persistence.Web.EntityFramework
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDBContext
     {

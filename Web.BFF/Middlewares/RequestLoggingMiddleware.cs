@@ -1,6 +1,6 @@
-﻿using Web.Core.DTOs.Logging;
+﻿using Web.App.Core.Web.Core.DTOs.Logging;
 
-namespace YourNamespace.Middlewares
+namespace Web.BFF.Middlewares
 {
     public class RequestLoggingMiddleware
     {

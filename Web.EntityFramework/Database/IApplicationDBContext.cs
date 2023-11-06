@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Web.EntityFramework.Database
+﻿namespace Web.App.Persistence.Web.EntityFramework
 {
     public interface IApplicationDBContext
     {

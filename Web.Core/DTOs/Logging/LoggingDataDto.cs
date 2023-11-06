@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace Web.Core.DTOs.Logging
+namespace Web.App.Core.Web.Core.DTOs.Logging
 {
     public class LoggingDataDto
     {

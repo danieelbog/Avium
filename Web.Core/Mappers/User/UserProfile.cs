@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using Ecom.Core.DTOs.Account;
-using WebApp.BFF.Core.Models;
+﻿using Web.App.Core.Web.Core.DTOs.Account;
+using Web.App.Core.Web.Core.Models;
+using AutoMapper;
 
-namespace Web.Core.Mappers.User
+namespace Web.App.Core.Web.Core.Mappers.User
 {
     public class UserProfile : Profile
     {

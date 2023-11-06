@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Web.EntityFramework.Database;
-using Web.Services.Impl.Services.Auth;
-using Web.Services.Impl.Services.Response;
-using Web.Services.Interfaces.Auth;
-using Web.Services.Interfaces.Response;
-using WebApp.BFF.Database;
+using Web.App.Application.Web.Services.Impl.Services.Services.Auth;
+using Web.App.Application.Web.Services.Impl.Services.Services.Response;
+using Web.App.Application.Web.Services.Interfaces.Auth;
+using Web.App.Application.Web.Services.Interfaces.Response;
+using Web.App.Persistence.Web.EntityFramework;
 
-namespace Web.Services.Impl
+namespace Web.App.Application.Web.Services.Impl
 {
     public static class DependencyInjection
     {

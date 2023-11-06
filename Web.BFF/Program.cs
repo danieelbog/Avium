@@ -1,10 +1,10 @@
+
 using Serilog;
 using System.Reflection;
 using Web.BFF.Middlewares;
-using Web.Core;
-using Web.EntityFramework;
-using Web.Services.Impl;
-using YourNamespace.Middlewares;
+using Web.App.Core.Web.Core;
+using Web.App.Persistence.Web.EntityFramework;
+using Web.App.Application.Web.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 

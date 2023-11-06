@@ -1,6 +1,4 @@
-﻿using WebApp.BFF.Core.Models;
-
-namespace Web.Core.Models
+﻿namespace Web.App.Core.Web.Core.Models
 {
     /// <summary>
     /// An entity that keeps track of who created it and when as well

@@ -1,6 +1,6 @@
-﻿using Web.Core.DTOs.Logging;
-using Web.Core.DTOs.Response;
-using Web.Core.Exceptions;
+﻿using Web.App.Core.Web.Core.DTOs.Logging;
+using Web.App.Core.Web.Core.DTOs.Response;
+using Web.App.Core.Web.Core.Exceptions;
 
 namespace Web.BFF.Middlewares
 {

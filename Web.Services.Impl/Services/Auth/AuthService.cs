@@ -1,13 +1,13 @@
-﻿using Ecom.Core.DTOs.Account;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Web.Core.DTOs.Auth;
-using Web.Core.Exceptions;
-using Web.Services.Interfaces.Auth;
-using WebApp.BFF.Core.Models;
+using Web.App.Application.Web.Services.Interfaces.Auth;
+using Web.App.Core.Web.Core.DTOs.Account;
+using Web.App.Core.Web.Core.DTOs.Auth;
+using Web.App.Core.Web.Core.Exceptions;
+using Web.App.Core.Web.Core.Models;
 
-namespace Web.Services.Impl.Services.Auth
+namespace Web.App.Application.Web.Services.Impl.Services.Services.Auth
 {
     public class AuthService : IAuthService
     {

@@ -1,4 +1,4 @@
-﻿namespace Web.Core.DTOs.Response
+﻿namespace Web.App.Core.Web.Core.DTOs.Response
 {
     public class ExceptionDto
     {
