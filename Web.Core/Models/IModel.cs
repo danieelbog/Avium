@@ -1,4 +1,4 @@
-﻿namespace Web.App.Core.Web.Core.Models
+﻿namespace Web.Core.Models
 {
     /// <summary>
     /// Base Model that contains a generic property that represents the ID.

@@ -1,7 +1,7 @@
-﻿using Web.App.Core.Web.Core.DTOs.Account;
-using Web.App.Core.Web.Core.DTOs.Auth;
+﻿using Web.Core.DTOs.Auth;
+using Web.Core.DTOs.User;
 
-namespace Web.App.Application.Web.Services.Interfaces.Auth
+namespace Web.Services.Interfaces.Auth
 {
     public interface IAuthService
     {

@@ -1,4 +1,4 @@
-﻿namespace Web.App.Persistence.Web.EntityFramework
+﻿namespace Web.EntityFramework.Database
 {
     public interface IApplicationDBContext
     {

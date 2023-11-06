@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Web.App.Application.Web.Services.Interfaces.Auth;
-using Web.App.Core.Web.Core.DTOs.Account;
-using Web.App.Core.Web.Core.DTOs.Auth;
-using Web.App.Core.Web.Core.Exceptions;
-using Web.App.Core.Web.Core.Models;
+using Web.Core.DTOs.Auth;
+using Web.Core.DTOs.User;
+using Web.Core.Exceptions;
+using Web.Core.Models.User;
+using Web.Services.Interfaces.Auth;
 
-namespace Web.App.Application.Web.Services.Impl.Services.Services.Auth
+namespace Web.Services.Impl.Services.Auth
 {
     public class AuthService : IAuthService
     {

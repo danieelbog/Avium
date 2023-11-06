@@ -1,8 +1,8 @@
-﻿using Web.App.Core.Web.Core.DTOs.Account;
-using Web.App.Core.Web.Core.Models;
-using AutoMapper;
+﻿using AutoMapper;
+using Web.Core.DTOs.User;
+using Web.Core.Models.User;
 
-namespace Web.App.Core.Web.Core.Mappers.User
+namespace Web.Core.Mappers.User
 {
     public class UserProfile : Profile
     {

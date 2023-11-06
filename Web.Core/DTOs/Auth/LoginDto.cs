@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Web.App.Core.Web.Core.DTOs.Account
+namespace Web.Core.DTOs.Auth
 {
     public class LoginDto
     {

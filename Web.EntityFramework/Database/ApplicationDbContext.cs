@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Web.App.Core.Web.Core.Models;
+using Web.Core.Models.User;
 
 //        Cmdlet                      Description
 //        --------------------------  ---------------------------------------------------
@@ -11,7 +11,7 @@ using Web.App.Core.Web.Core.Models;
 //        Update-Database		      Updates the database to a specified migration.
 //        Use-DbContext               Sets the default DbContext to use.
 
-namespace Web.App.Persistence.Web.EntityFramework
+namespace Web.EntityFramework.Database
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDBContext
     {

@@ -3,9 +3,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Web.App.Application.Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Auth;
 
-namespace Web.App.Application.Web.Services.Impl.Services.Services.Auth
+namespace Web.Services.Impl.Services.Auth
 {
     public class TokenService : ITokenService
     {

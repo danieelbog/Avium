@@ -1,4 +1,4 @@
-﻿using Web.App.Core.Web.Core.DTOs.Logging;
+﻿using Web.Core.DTOs.Logging;
 
 namespace Web.BFF.Middlewares
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Web.App.Core.Web.Core
+namespace Web.Core
 {
     public static class DependencyInjection
     {

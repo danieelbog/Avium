@@ -1,4 +1,4 @@
-﻿namespace Web.App.Core.Web.Core.DTOs.Auth
+﻿namespace Web.Core.DTOs.Auth
 {
     public class TokenDto
     {

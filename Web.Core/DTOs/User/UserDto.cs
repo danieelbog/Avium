@@ -1,4 +1,4 @@
-﻿namespace Web.App.Core.Web.Core.DTOs.Account
+﻿namespace Web.Core.DTOs.User
 {
     public class UserDto
     {

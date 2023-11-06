@@ -1,4 +1,6 @@
-﻿namespace Web.App.Core.Web.Core.Models
+﻿using Web.Core.Models.User;
+
+namespace Web.Core.Models
 {
     /// <summary>
     /// An entity that keeps track of who created it and when as well

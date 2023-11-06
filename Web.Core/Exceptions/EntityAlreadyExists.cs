@@ -1,4 +1,4 @@
-﻿namespace Web.App.Core.Web.Core.Exceptions
+﻿namespace Web.Core.Exceptions
 {
     public class EntityAlreadyExists : Exception
     {

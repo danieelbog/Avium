@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Web.App.Application.Web.Services.Interfaces.Auth;
-using Web.App.Application.Web.Services.Interfaces.Response;
-using Web.App.Core.Web.Core.DTOs.Account;
-using Web.App.Core.Web.Core.DTOs.Auth;
-using Web.App.Core.Web.Core.DTOs.Response;
+using Web.Core.DTOs.Auth;
+using Web.Core.DTOs.Response;
+using Web.Core.DTOs.User;
+using Web.Services.Interfaces.Auth;
+using Web.Services.Interfaces.Response;
 
 namespace Web.BFF.Controllers.V1.Auth
 {
