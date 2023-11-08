@@ -21,6 +21,7 @@ namespace Web.IdentityFramework.Database
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //builder.HasDefaultSchema("");
             base.OnModelCreating(builder);
         }
     }

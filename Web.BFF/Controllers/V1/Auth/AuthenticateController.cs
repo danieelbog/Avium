@@ -2,8 +2,8 @@
 using Web.Core.DTOs.Auth;
 using Web.Core.DTOs.Response;
 using Web.Core.DTOs.User;
-using Web.Services.Interfaces.Auth;
-using Web.Services.Interfaces.Response;
+using Web.Core.Interfaces.Auth;
+using Web.Core.Interfaces.Response;
 
 namespace Web.BFF.Controllers.V1.Auth
 {
@@ -29,8 +29,8 @@ namespace Web.BFF.Controllers.V1.Auth
         /// <returns></returns>
         [HttpPost]
         [Route("login")]
-        [ProducesResponseType(typeof(ApiResponse<TokenDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ExceptionDto>), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponseDto<TokenDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponseDto<ExceptionDto>), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             return Ok(_responseService.CreateResponse(await _authService.LoginAsync(loginDto)));
@@ -43,8 +43,8 @@ namespace Web.BFF.Controllers.V1.Auth
         /// <returns></returns>
         [HttpPost]
         [Route("register")]
-        [ProducesResponseType(typeof(ApiResponse<UserDto>), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse<ExceptionDto>), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponseDto<UserDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponseDto<ExceptionDto>), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             return Ok(_responseService.CreateResponse(await _authService.RegisterAsync(registerDto)));

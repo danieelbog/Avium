@@ -9,7 +9,7 @@ namespace Web.EntityFramework
     {
         public static IServiceCollection AddEntityFramework(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("WebContext")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("WebDbContext")));
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 

@@ -1,31 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Web.EntityFramework.Database;
-using Web.Services.Impl.Services.Auth;
-using Web.Services.Impl.Services.Auth.Events;
-using Web.Services.Impl.Services.Event;
-using Web.Services.Impl.Services.Response;
-using Web.Services.Interfaces.Auth;
-using Web.Services.Interfaces.Event;
-using Web.Services.Interfaces.Response;
+using Web.Core.Interfaces.Auth;
+using Web.Core.Interfaces.Response;
+using Web.Services.Services.Auth;
+using Web.Services.Services.Response;
 
-namespace Web.Services.Impl
+namespace Web.Services
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-
-            #region Services
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IResponseService, ResponseService>();
-            #endregion
-
-            #region Events
-            services.AddSingleton<IEventService, EventService>();
-            services.AddScoped<IEventHandler<LoginEvent>, LoginEventHandler>();
-            #endregion
-
 
             return services;
         }

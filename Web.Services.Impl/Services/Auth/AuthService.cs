@@ -4,12 +4,12 @@ using System.Security.Claims;
 using Web.Core.DTOs.Auth;
 using Web.Core.DTOs.User;
 using Web.Core.Exceptions;
+using Web.Core.Interfaces.Auth;
+using Web.Core.Interfaces.Event;
 using Web.Core.Models.User;
-using Web.Services.Impl.Services.Auth.Events;
-using Web.Services.Interfaces.Auth;
-using Web.Services.Interfaces.Event;
+using Web.Events.Events;
 
-namespace Web.Services.Impl.Services.Auth
+namespace Web.Services.Services.Auth
 {
     public class AuthService : IAuthService
     {

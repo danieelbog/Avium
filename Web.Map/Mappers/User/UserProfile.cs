@@ -2,7 +2,7 @@
 using Web.Core.DTOs.User;
 using Web.Core.Models.User;
 
-namespace Web.Core.Mappers.User
+namespace Web.Map.Mappers.User
 {
     public class UserProfile : Profile
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Web.Services.Interfaces.Event;
+using Web.Core.Interfaces.Event;
 
-namespace Web.Services.Impl.Services.Event
+namespace Web.Events.Services
 {
     public class EventService : IEventService
     {

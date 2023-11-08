@@ -1,4 +1,4 @@
-﻿namespace Web.Core.DTOs.Response
+﻿namespace Web.Services.Impl.DTOs.Response
 {
     public class ApiResponse<T>
     {

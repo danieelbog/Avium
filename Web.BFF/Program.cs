@@ -1,19 +1,22 @@
-
 using Serilog;
 using System.Reflection;
 using Web.BFF.Middlewares;
 using Web.Core;
+using Web.Events;
+using Web.Map;
+using Web.Services;
 using Web.EntityFramework;
 using Web.IdentityFramework;
-using Web.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddCore()
+    .AddEvents()
+    .AddMappers()
+    .AddServices()
     .AddEntityFramework(builder.Configuration)
-    .AddIdentityFramework(builder.Configuration)
-    .AddServices();
+    .AddIdentityFramework(builder.Configuration);
 
 builder.Host.UseSerilog((context, loggerConfig) =>
     loggerConfig.ReadFrom.Configuration(context.Configuration));

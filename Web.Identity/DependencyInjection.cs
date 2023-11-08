@@ -14,7 +14,7 @@ namespace Web.IdentityFramework
     {
         public static IServiceCollection AddIdentityFramework(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("WebIdentityContext")));
+            services.AddDbContext<ApplicationIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("WebIdentityDbContext")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationIdentityDbContext>()

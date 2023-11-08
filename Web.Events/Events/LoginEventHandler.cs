@@ -1,6 +1,6 @@
-﻿using Web.Services.Interfaces.Event;
+﻿using Web.Core.Interfaces.Event;
 
-namespace Web.Services.Impl.Services.Auth.Events
+namespace Web.Events.Events
 {
     public class LoginEventHandler : IEventHandler<LoginEvent>
     {

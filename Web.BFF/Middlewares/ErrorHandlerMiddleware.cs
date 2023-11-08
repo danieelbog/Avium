@@ -42,7 +42,7 @@ namespace Web.BFF.Middlewares
             var statusCode = _statusCodeMap.TryGetValue(exceptionType, out int code) ? code : StatusCodes.Status500InternalServerError;
             context.Response.StatusCode = statusCode;
 
-            await context.Response.WriteAsJsonAsync(new ApiResponse<ExceptionDto>
+            await context.Response.WriteAsJsonAsync(new ApiResponseDto<ExceptionDto>
             {
                 Data = new ExceptionDto(exceptionType.Name, ex.Message)
             });
