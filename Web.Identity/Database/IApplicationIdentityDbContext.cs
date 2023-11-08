@@ -1,6 +1,6 @@
-﻿namespace Web.EntityFramework.Database
+﻿namespace Web.IdentityFramework.Database
 {
-    public interface IApplicationDbContext
+    public interface IApplicationIdentityDbContext
     {
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }

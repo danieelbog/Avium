@@ -4,12 +4,14 @@ using System.Reflection;
 using Web.BFF.Middlewares;
 using Web.Core;
 using Web.EntityFramework;
+using Web.IdentityFramework;
 using Web.Services.Impl;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services
     .AddCore()
+    .AddEntityFramework(builder.Configuration)
     .AddIdentityFramework(builder.Configuration)
     .AddServices();
 
